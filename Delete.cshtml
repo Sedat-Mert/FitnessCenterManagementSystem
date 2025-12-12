@@ -1,0 +1,12 @@
+﻿@model sedatodev1.Models.Salon
+
+<h2>Salon Sil</h2>
+
+<div class="alert alert-danger mt-3">
+    <strong>@Model.Ad</strong> isimli salonu silmek istediğinize emin misiniz?
+</div>
+
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+</form>

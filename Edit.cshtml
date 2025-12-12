@@ -1,0 +1,24 @@
+﻿@model sedatodev1.Models.Salon
+
+<h2>Salon Düzenle</h2>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Ad</label>
+        <input type="text" name="Ad" value="@Model.Ad" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Adres</label>
+        <input type="text" name="Adres" value="@Model.Adres" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Telefon</label>
+        <input type="text" name="Telefon" value="@Model.Telefon" class="form-control" required />
+    </div>
+
+    <button class="btn btn-primary mt-3">Güncelle</button>
+</form>
