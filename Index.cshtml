@@ -1,108 +1,84 @@
-﻿@{
-    ViewData["Title"] = "Hoş Geldiniz";
-}
+﻿@model List<sedatodev1.Models.ExerciseApiModel>
 
-<style>
-    body {
-        background: #f4f4f4 !important;
-    }
-
-    /* Küçültülmüş modern hero */
-    .hero {
-        background: linear-gradient(135deg, #6e8efb, #a777e3);
-        color: white;
-        padding: 60px 20px;
-        border-radius: 14px;
-        text-align: center;
-        margin-top: 20px;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-    }
-
-        .hero h1 {
-            font-size: 38px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 17px;
-            opacity: 0.9;
-        }
-
-    .feature-card {
-        transition: 0.25s ease;
-        border-radius: 14px;
-        background: white;
-        border: none;
-    }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 22px rgba(0,0,0,0.15);
-        }
-</style>
-
-<div class="container">
-
-    <!-- HERO ALANI (küçültülmüş modern görünüm) -->
-    <div class="hero">
-        <h1>🏋️‍♂️ Fitness Yönetim Sistemine Hoş Geldiniz</h1>
-        <p>Spor salonları, antrenörler ve hizmetlerinizi kolayca yönetin.</p>
-
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <a class="btn btn-light btn-lg mt-3 me-2" href="/Account/Login">Giriş Yap</a>
-            <a class="btn btn-outline-light btn-lg mt-3" href="/Account/Register">Kayıt Ol</a>
-        }
-        else if (User.IsInRole("Uye"))
-        {
-            <a class="btn btn-dark btn-lg mt-3" href="/Randevu/HizmetSec">Başla</a>
-        }
-        else if (User.IsInRole("Admin"))
-        {
-            <a class="btn btn-warning btn-lg mt-3" href="/Salonlar">Admin Paneli</a>
-        }
-
-    </div>
-
-    <!-- KARTLAR -->
-    <div class="row text-center mt-5">
-
-        <div class="col-md-4 mb-4">
-            <div class="card feature-card p-4">
-                <h3>🏋️‍♀️ Antrenörler</h3>
-                <p>Salonunuzdaki tüm antrenörleri görüntüleyin.</p>
-                <a href="/Antrenorler" class="btn btn-primary">Görüntüle</a>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card feature-card p-4">
-                <h3>💆 Hizmetler</h3>
-                <p>Fitness, yoga, pilates gibi hizmetleri inceleyin.</p>
-                <a href="/Hizmetler" class="btn btn-primary">Görüntüle</a>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card feature-card p-4">
-                <h3>🏠 Salonlar</h3>
-                <p>Tüm spor salonlarını kolayca keşfedin.</p>
-                <a href="/Salonlar" class="btn btn-primary">Görüntüle</a>
-            </div>
-        </div>
-
-    </div>
-
-    @if (User.IsInRole("Admin"))
+<h2 class="fw-bold mb-4">🏋️ Egzersiz Ara</h2>
+@functions {
+    string KasAdi(string eng)
     {
-        <div class="mt-4 p-4 bg-dark text-white rounded shadow">
-            <h4>🔐 Admin Paneli</h4>
-            <p>Yönetim işlemleri:</p>
-
-            <a href="/Salonlar" class="btn btn-outline-light me-2">Salon Yönetimi</a>
-            <a href="/Antrenorler" class="btn btn-outline-light me-2">Antrenör Yönetimi</a>
-            <a href="/Hizmetler" class="btn btn-outline-light">Hizmet Yönetimi</a>
-        </div>
+        return eng switch
+        {
+            "back" => "Sırt",
+            "chest" => "Göğüs",
+            "upper legs" => "Üst Bacak",
+            "lower legs" => "Alt Bacak",
+            "shoulders" => "Omuz",
+            "waist" => "Bel",
+            "cardio" => "Kardiyo",
+            _ => eng
+        };
     }
 
+    string EkipmanAdi(string eng)
+    {
+        return eng switch
+        {
+            "dumbbell" => "Dambıl",
+            "barbell" => "Halter",
+            "body weight" => "Vücut Ağırlığı",
+            "cable" => "Kablo",
+            "machine" => "Makine",
+            "band" => "Direnç Bandı",
+            _ => eng
+        };
+    }
+}
+<form method="get" class="row g-3 mb-4">
+
+    <div class="col-md-4">
+        <select name="bodyFilter" class="form-control">
+            <option value="">Kas Grubu Seç</option>
+            <option value="back">Sırt</option>
+            <option value="chest">Göğüs</option>
+            <option value="legs">Bacak</option>
+            <option value="shoulders">Omuz</option>
+            <option value="arms">Kol</option>
+            <option value="waist">Bel</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select name="equipmentFilter" class="form-control">
+            <option value="">Ekipman Seç</option>
+            <option value="barbell">Barbell</option>
+            <option value="dumbbell">Dumbbell</option>
+            <option value="cable">Kablo</option>
+            <option value="body weight">Vücut Ağırlığı</option>
+            <option value="kettlebell">Kettlebell</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <button class="btn btn-primary w-100">Filtrele</button>
+    </div>
+
+</form>
+
+
+<div class="row">
+@foreach (var e in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <img src="@e.gifUrl" class="card-img-top" style="height:250px; object-fit:contain;" />
+
+            <div class="card-body">
+                <h5 class="card-title">@e.name</h5>
+                <p class="card-text">
+                    <strong>Kas Grubu:</strong> @e.target <br />
+                    <strong>Bölge:</strong> @e.bodyPart <br />
+                    <strong>Ekipman:</strong> @e.equipment
+                </p>
+            </div>
+        </div>
+    </div>
+}
 </div>

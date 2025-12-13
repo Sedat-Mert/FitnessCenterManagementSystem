@@ -1,23 +1,29 @@
-﻿@model sedatodev1.Models.Salon
+﻿@model sedatodev1.Models.Hizmet
 
-<h2>Salon Düzenle</h2>
+<h2>Hizmeti Düzenle</h2>
 
-<form method="post">
-    <input type="hidden" name="Id" value="@Model.Id" />
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
 
     <div class="form-group">
-        <label>Ad</label>
-        <input type="text" name="Ad" value="@Model.Ad" class="form-control" required />
+        <label>Hizmet Adı</label>
+        <input class="form-control" asp-for="Ad" required />
     </div>
 
-    <div class="form-group">
-        <label>Adres</label>
-        <input type="text" name="Adres" value="@Model.Adres" class="form-control" required />
+    <div class="form-group mt-2">
+        <label>Süre (dk)</label>
+        <input type="number" class="form-control" asp-for="Sure" required />
     </div>
 
-    <div class="form-group">
-        <label>Telefon</label>
-        <input type="text" name="Telefon" value="@Model.Telefon" class="form-control" required />
+    <div class="form-group mt-2">
+        <label>Ücret (₺)</label>
+        <input type="number" class="form-control" asp-for="Ucret" required />
+    </div>
+
+    <div class="form-group mt-2">
+        <label>Salon</label>
+        <select class="form-control" asp-for="SalonId" asp-items="@(new SelectList(ViewBag.Salonlar, "Id", "Ad"))">
+        </select>
     </div>
 
     <button class="btn btn-primary mt-3">Güncelle</button>
