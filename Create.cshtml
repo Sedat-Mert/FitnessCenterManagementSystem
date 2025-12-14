@@ -1,44 +1,40 @@
-﻿@model sedatodev1.Models.Hizmet
+﻿@model sedatodev1.Models.Antrenor
 
-<h2>Yeni Hizmet Ekle</h2>
+<h2>Yeni Antrenör Ekle</h2>
 
 <form method="post">
     <div class="form-group">
-        <label>Hizmet Adı</label>
+        <label>Ad Soyad</label>
         <input class="form-control" name="Ad" required />
     </div>
 
     <div class="form-group mt-2">
-        <label>Süre (dk)</label>
-        <input type="number" class="form-control" name="Sure" required />
+        <label>Uzmanlık</label>
+        <select class="form-control" name="Uzmanlik" required>
+            <option value="">Seçiniz</option>
+            <option value="yoga">Yoga</option>
+            <option value="fitness">Fitness</option>
+            <option value="masaj">Masaj</option>
+            <option value="pilates">Pilates</option>
+            <option value="trx">TRX</option>
+            <option value="crossfit">Crossfit</option>
+            <option value="rehabilitasyon">Rehabilitasyon</option>
+        </select>
     </div>
 
+
     <div class="form-group mt-2">
-        <label>Ücret (₺)</label>
-        <input type="number" class="form-control" name="Ucret" required />
+        <label>Telefon</label>
+        <input class="form-control" name="Telefon" required />
     </div>
 
     <div class="form-group mt-2">
         <label>Salon</label>
-        <select class="form-control" name="SalonId" required>
-            <option value="">Salon Seçin</option>
+        <select name="SalonId" class="form-control" required>
             @foreach (var s in ViewBag.Salonlar)
             {
                 <option value="@s.Id">@s.Ad</option>
             }
-        </select>
-    </div>
-
-    <div class="form-group mt-2">
-        <label>Gereken Uzmanlık</label>
-        <select class="form-control" name="GerekenUzmanlik" required>
-            <option value="">Seçin</option>
-            <option value="yoga">Yoga</option>
-            <option value="fitness">Fitness</option>
-            <option value="pilates">Pilates</option>
-            <option value="masaj">Masaj</option>
-            <option value="trx">TRX</option>
-            <option value="crossfit">Crossfit</option>
         </select>
     </div>
 

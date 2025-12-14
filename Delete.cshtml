@@ -1,16 +1,18 @@
-﻿@model sedatodev1.Models.Hizmet
+﻿@model sedatodev1.Models.Antrenor
 
-    <h2>Hizmeti Sil</h2>
+<h2>Antrenör Sil</h2>
 
-    <div class="alert alert-danger mt-3">
-        <strong>@Model.Ad</strong> isimli hizmeti silmek istediğine emin misin?
-    </div>
+<div class="alert alert-danger mt-3">
+    <strong>@Model.Ad</strong> isimli antrenörü silmek istediğine emin misin?
+</div>
 
+<p><strong>Uzmanlık:</strong> @Model.Uzmanlik</p>
+<p><strong>Telefon:</strong> @Model.Telefon</p>
 <p><strong>Salon:</strong> @Model.Salon.Ad</p>
-<p><strong>Süre:</strong> @Model.Sure dakika</p>
-<p><strong>Ücret:</strong> @Model.Ucret ₺</p>
 
 <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
     <button class="btn btn-danger">Evet, Sil</button>
-    <a class="btn btn-secondary" asp-action="Index">Vazgeç</a>
+    <a class="btn btn-secondary" href="/Antrenorler">Vazgeç</a>
 </form>

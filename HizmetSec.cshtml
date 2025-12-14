@@ -1,0 +1,31 @@
+﻿@model sedatodev1.Models.Antrenor
+@{
+    var hizmetler = ViewBag.Hizmetler as List<sedatodev1.Models.Hizmet>;
+    var secili = Model.AntrenorHizmetler.Select(x => x.HizmetId).ToList();
+}
+
+<h2>@Model.Ad - Hizmet Seçimi</h2>
+
+<form method="post" action="/Antrenorler/HizmetSec">
+    <input type="hidden" name="antrenorId" value="@Model.Id" />
+
+    <div class="mt-3">
+        @foreach (var h in hizmetler)
+        {
+            <div class="form-check mb-1">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="hizmetler"
+                       value="@h.Id"
+                @(secili.Contains(h.Id) ? "checked" : "") />
+
+                <label class="form-check-label">
+                    @h.Ad (@h.Salon.Ad)
+                </label>
+            </div>
+        }
+    </div>
+
+    <button class="btn btn-success mt-3">Kaydet</button>
+    <a href="/Antrenorler" class="btn btn-secondary mt-3">Geri</a>
+</form>
