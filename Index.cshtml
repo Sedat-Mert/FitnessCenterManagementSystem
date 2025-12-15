@@ -1,57 +1,84 @@
-﻿@model IEnumerable<sedatodev1.Models.Antrenor>
+﻿@model List<sedatodev1.Models.ExerciseApiModel>
 
-<h2>Antrenör Listesi</h2>
-
-@if (User.IsInRole("Admin"))
-{
-    <a class="btn btn-success mb-3" asp-action="Create">Yeni Antrenör Ekle</a>
-}
-
-<table class="table mt-3 table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Ad Soyad</th>
-            <th>Uzmanlık</th>
-            <th>Telefon</th>
-            <th>Salon</th>
-            @if (User.IsInRole("Admin"))
-            {
-                <th style="width:150px;">İşlemler</th>
-            }
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var a in Model)
+<h2 class="fw-bold mb-4">🏋️ Egzersiz Ara</h2>
+@functions {
+    string KasAdi(string eng)
+    {
+        return eng switch
         {
-            <tr>
-                <td>@a.Ad</td>
-                <td>@a.Uzmanlik</td>
-                <td>@a.Telefon</td>
-                <td>@a.Salon.Ad</td>
+            "back" => "Sırt",
+            "chest" => "Göğüs",
+            "upper legs" => "Üst Bacak",
+            "lower legs" => "Alt Bacak",
+            "shoulders" => "Omuz",
+            "waist" => "Bel",
+            "cardio" => "Kardiyo",
+            _ => eng
+        };
+    }
 
-                @if (User.IsInRole("Admin"))
-                {
-                    <td>
-                        <a asp-controller="Antrenorler"
-                           asp-action="Edit"
-                           asp-route-id="@a.Id"
-                           class="btn btn-warning btn-sm">Düzenle</a>
+    string EkipmanAdi(string eng)
+    {
+        return eng switch
+        {
+            "dumbbell" => "Dambıl",
+            "barbell" => "Halter",
+            "body weight" => "Vücut Ağırlığı",
+            "cable" => "Kablo",
+            "machine" => "Makine",
+            "band" => "Direnç Bandı",
+            _ => eng
+        };
+    }
+}
+<form method="get" class="row g-3 mb-4">
 
-                        <form asp-controller="Antrenorler"
-                              asp-action="Delete"
-                              method="post"
-                              style="display:inline;">
-                            <input type="hidden" name="id" value="@a.Id" />
-                            <button type="submit"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Bu antrenörü silmek istediğinize emin misiniz?');">
-                                Sil
-                            </button>
-                        </form>
-                    </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="col-md-4">
+        <select name="bodyFilter" class="form-control">
+            <option value="">Kas Grubu Seç</option>
+            <option value="back">Sırt</option>
+            <option value="chest">Göğüs</option>
+            <option value="legs">Bacak</option>
+            <option value="shoulders">Omuz</option>
+            <option value="arms">Kol</option>
+            <option value="waist">Bel</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <select name="equipmentFilter" class="form-control">
+            <option value="">Ekipman Seç</option>
+            <option value="barbell">Barbell</option>
+            <option value="dumbbell">Dumbbell</option>
+            <option value="cable">Kablo</option>
+            <option value="body weight">Vücut Ağırlığı</option>
+            <option value="kettlebell">Kettlebell</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <button class="btn btn-primary w-100">Filtrele</button>
+    </div>
+
+</form>
+
+
+<div class="row">
+@foreach (var e in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <img src="@e.gifUrl" class="card-img-top" style="height:250px; object-fit:contain;" />
+
+            <div class="card-body">
+                <h5 class="card-title">@e.name</h5>
+                <p class="card-text">
+                    <strong>Kas Grubu:</strong> @e.target <br />
+                    <strong>Bölge:</strong> @e.bodyPart <br />
+                    <strong>Ekipman:</strong> @e.equipment
+                </p>
+            </div>
+        </div>
+    </div>
+}
+</div>
