@@ -1,0 +1,27 @@
+.menu-link {
+    font-weight: 700;
+    font-size: 16px;
+    color: #222 !important;
+    position: relative;
+    text-transform: uppercase;
+}
+
+    .menu-link:hover {
+        color: #e4002b !important;
+    }
+
+    /* MACFit alt çizgi animasyonu */
+    .menu-link::after {
+        content: "";
+        width: 0%;
+        height: 3px;
+        background-color: #e4002b;
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        transition: 0.3s;
+    }
+
+    .menu-link:hover::after {
+        width: 100%;
+    }
